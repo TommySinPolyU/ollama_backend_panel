@@ -142,7 +142,7 @@ install_ollama() {
     read -p "Do you want to install Ollama on this computer? (y/n) " answer
     case $answer in
         [Yy]* )
-            curl https://chatdemo.citrusinno.com/backend/ollama_install.sh | sh
+            curl https://raw.githubusercontent.com/TommySinPolyU/ollama_backend_panel/main/ollama_install.sh | sh
             echo "Ollama installed on this host."
             ;;
         * )
@@ -152,7 +152,7 @@ install_ollama() {
 }
 # Function to instal Ollama headless
 install_ollama_headless(){
-    curl https://chatdemo.citrusinno.com/backend/ollama_install.sh | sh
+    curl https://raw.githubusercontent.com/TommySinPolyU/ollama_backend_panel/main/ollama_install.sh | sh
     echo "Ollama Installed"
 }
 
