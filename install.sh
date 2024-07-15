@@ -14,12 +14,19 @@ install_packages() {
     if [[ "$1" == "Ubuntu" || "$1" == "Debian" ]]; then
         sudo apt update
         sudo apt install -y $COMMON_PACKAGES
+        sudo mkdir -p --mode=0755 /usr/share/keyrings
+        curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+        echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
+        sudo apt-get update && sudo apt-get install cloudflared
     elif [[ "$1" == "Arch" ]]; then
         sudo pacman -Syu
         sudo pacman -S $COMMON_PACKAGES
+        sudo pacman -Syu cloudflared
     elif [[ "$1" == "RedHat" ]]; then
         sudo yum update
         sudo yum install -y $COMMON_PACKAGES
+        curl -fsSL https://pkg.cloudflare.com/cloudflared-ascii.repo | sudo tee /etc/yum.repos.d/cloudflared.repo
+        sudo yum update && sudo yum install cloudflared
     fi
 }
 
